@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <textarea id="txtInput"></textarea>
+    <input type="button" onclick="ProcessElfCalories();" value="Process Elf Calories"/>
+    <script type="text/javascript">
+        var ElfWithMostCalories = null;
+        function Elf(_calories) {
+            this.Calories = _calories;
+        }
+        var Elves = [];
+        function ProcessElfCalories() {
+            Elves = [];
+            ElfWithMostCalories = null;
+            var input = document.getElementById("txtInput").value;
+            var elfCalories = input.split('\n\n');
+            for (var i = 0; i < elfCalories.length; i++) {
+                var calories = elfCalories[i];
+                calories = calories.split('\n');
+                var caloryCount = 0;
+                for (var j = 0; j < calories.length; j++) {
+                    var calory = calories[j];
+                    if (calory.trim() !== "")
+                        caloryCount += parseInt(calory);
+                }
+
+                var elf = new Elf(caloryCount);
+                Elves.push(elf);
+
+                if (ElfWithMostCalories === null) {
+                    ElfWithMostCalories = elf;
+                    continue;
+                }
+
+                if (elf.Calories > ElfWithMostCalories.Calories)
+                    ElfWithMostCalories = elf;
+            }
+
+            alert(`The elf with the most calories has: ${ElfWithMostCalories.Calories}`);
+        }
+    </script>
+</body>
+</html>
